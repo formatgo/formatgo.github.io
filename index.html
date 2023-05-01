@@ -4,6 +4,40 @@
 <link rel="preload" as="script" href="https://live.demand.supply/up.js">
 <script async data-cfasync="false" type="text/javascript" src="https://live.demand.supply/up.js"></script>
 <style>
+
+#countdown {
+  width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:auto;
+}
+#countdown ul {
+
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+#countdown ul li {
+
+  
+  margin: 0;
+  list-style: none;
+  background-color: #9999994d;
+  border-radius: 5px;
+}
+#countdown ul li span {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+}
+
+
+
+
+
+
 body, html {
   height: 100%;
   margin: 0;
@@ -39,6 +73,9 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  
+  
+  
 }
 
 hr {
@@ -62,10 +99,49 @@ text-align: center;
   <div class="middle">
     <h1>COMING SOON</h1>
     <hr>
-    <p>8 days left</p>
+ 
+    <div id="countdown">
+    
+      <ul>
+        <li><span id="days"></span>Days</li>
+        <li><span id="hours"></span>Hours</li>
+        <li><span id="minutes"></span>Minutes</li>
+        <li><span id="seconds"></span>Seconds</li>
+      </ul>      
+    </div>
+    <script>
+      (() => {
+
+const sec = 1000,
+  min = sec * 60,
+  hour = min * 60,
+  day = hour * 24;
+
+const end = new Date("May 10, 2023 00:00:00").getTime();
+
+const int = setInterval(() => {
+  const current = new Date().getTime();
+  const remaining = end - current;
+  document.getElementById("days").innerText = Math.floor(remaining / day);
+  document.getElementById("hours").innerText = Math.floor( (remaining % day) / hour );
+  document.getElementById("minutes").innerText = Math.floor( (remaining % hour) / min );
+  document.getElementById("seconds").innerText = Math.floor( (remaining % min) / sec );
+  if (remaining < 0) {
+    document.querySelector("h1").innerText = "We Have Arrived!";
+    document.querySelector("p").innerHTML = "The big day is finally here - view our <a href=https://www.website.com>website<a/> for more information.";
+    const digit = document.querySelectorAll("span");
+    digit.forEach((digit) => {
+      digit.innerText = "0";
+    });
+    clearInterval(int);
+  }
+}, 1000);
+
+})();
+    </script>
   </div>
   <div class="bottomleft">
-    <p>Don't Forget to check it out</p>
+    <p align="center">Don't Forget to check it out</p>
     <footer><p class="copyfooter">© 2023 - 2023 www.formatgo.com - All Rights Reserved.</p></footer>
   </div>
 <footer>
