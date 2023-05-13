@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Convert Image to BMP for FREE - Format GO</title>
+	<link rel="stylesheet" href="/assets/style.css">
+	<script>
+		function enableConvertButton() {
+			document.getEleqmentById("convertButton").disabled = false;
+		}
+
+		function disableConvertButton() {
+			document.getElementById("convertButton").disabled = true;
+		}
+
+		function convertFile() {
+			// Get the input file
+			var inputFile = document.getElementById("inputFile").files[0];
+
+			// Create a new FileReader object
+			var reader = new FileReader();
+
+			// Define what happens when the file is loaded
+			reader.onload = function(event) {
+				// Create a new Image object
+				var image = new Image();
+
+				// Define what happens when the image is loaded
+				image.onload = function() {
+					// Create a new Canvas object
+					var canvas = document.createElement("canvas");
+					canvas.width = image.width;
+					canvas.height = image.height;
+
+					// Draw the image on the canvas
+					var ctx = canvas.getContext("2d");
+					ctx.drawImage(image, 0, 0);
+
+					// Convert the canvas to a bmp data URL
+					var bmpDataUrl = canvas.toDataURL("image/bmp");
+
+					// Save the bmp file
+					var downloadLink = document.createElement("a");
+					downloadLink.download = "converted.bmp";
+					downloadLink.href = bmpDataUrl;
+					downloadLink.style.display = "none";
+					document.body.appendChild(downloadLink);
+					downloadLink.click();
+					document.body.removeChild(downloadLink);
+					disableConvertButton();
+				};
+
+				// Set the source of the image to the loaded gif data
+				image.src = event.target.result;
+			};
+
+			// Read the input file as a data URL
+			reader.readAsDataURL(inputFile);
+
+			// Disable the "Convert" button while the conversion is in progress
+			disableConvertButton();
+		}
+	</script>
+</head>
+<body>
+	<nav>
+        <a href="#"><img alt="" src="/assets/cover.png" height="100"></a>
+        <ul>
+            <li><a href="https://formatgo.com/" target="_blank">Home</a></li>
+            <li><a href="https://formatgo.com/convert.html" target="_blank">Convert</a></li>
+            <li><a href="https://formatgo.com/help.html" target="_blank">Help</a></li>
+        </ul>
+    </nav>
+<div class="sec">
+	<h1 class="titleo">IMAGE to BMP Converter</h1>
+    <br>
+    <br>
+    <p align="center"><b>File formats supported: JPG, PNG, TIFF, BMP, GIF</b></p>
+    <br>
+    <br>
+	<p align="center">Select or drop an IMAGE file below ⬇️ to convert:</p>
+	<div class="f">
+	<input type="file" id="inputFile" onchange="enableConvertButton()">
+	</div>
+	<div class="f">
+	<button id="convertButton" onclick="convertFile()" disabled>DOWNLOAD BMP</button>
+	</div>
+</div>
+	<hr>
+	<footer>
+		<p><div id="copyright" align="center">&copy; 2023 - 2023 www.formatgo.com</div>
+		  <script>
+		  (function(){
+			let cpr = document.getElementById("copyright");
+			cpr.innerHTML = "&copy; 2023 - "+new Date().getFullYear()+" www.formatgo.com - All Rights Reserved.";
+			
+		  })();
+		  </script></p>
+	  </footer>
+	<style>
+		.titleo {
+			text-align:center;
+			font-size: 50px;
+		}
+
+		.f {
+			display:flex;
+			justify-content:center;
+			align-items: center;
+			
+		}
+		.sec {
+			height:550px
+		}
+	</style>
+</body>
+</html>
